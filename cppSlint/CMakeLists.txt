@@ -22,7 +22,7 @@ set(DEFAULT_SLINT_EMBED_RESOURCES "embed-files")
 
 add_executable(__change__ src/main.cpp)
 target_link_libraries(__change__ PRIVATE Slint::Slint)
-slint_target_sources(__change__ ui/appwindow.slint)
+slint_target_sources(__change__ ui/app-window.slint)
 # On Windows, copy the Slint DLL next to the application binary so that it's found.
 if (WIN32)
     add_custom_command(TARGET __change__ POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:__change__> $<TARGET_FILE_DIR:__change__> COMMAND_EXPAND_LISTS)

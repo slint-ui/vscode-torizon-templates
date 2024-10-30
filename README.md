@@ -70,9 +70,5 @@ Also, the template can be deprecated. In this case, it will be at the [deprecate
 
 # List of Deprecated templates
 
-| TEMPLATE | DESCRIPTION | RUNTIME | LANGUAGE | HW ARCH | FOLDER | CONTRIBUTOR |
-| -------- | ----------- | ------- | -------- | ------- | ------ | ----------- |
-| ![](https://raw.githubusercontent.com/toradex/vscode-torizon-templates-documentation/refs/heads/main/thumbnails/unogtk.png?raw=true) | .NET 6 C# Uno Platform Skia.GTK | .NET 6.0 | C# | ![](assets/img/arm32.png?raw=true&id=2) ![](assets/img/arm64.png?raw=true&id=2)   | [dotnetUno](./dotnetUno) | ![](https://avatars.githubusercontent.com/u/2633321?v=4&s=64&s=64) [@microhobby](https://www.github.com/microhobby) |
-| ![](https://raw.githubusercontent.com/toradex/vscode-torizon-templates-documentation/refs/heads/main/thumbnails/unofbdrm.png?raw=true) | .NET 6 C# Uno Platform Frame Buffer | .NET 6.0 | C# | ![](assets/img/arm32.png?raw=true&id=2) ![](assets/img/arm64.png?raw=true&id=2) | [dotnetUnoFrameBuffer](./dotnetUnoFrameBuffer) | ![](https://avatars.githubusercontent.com/u/2633321?v=4&s=64) [@microhobby](https://www.github.com/microhobby) |
 
-For the reason of deprecation and how to proceed with the update of this template, please check the [DEPRECATED.md](./DEPRECATED.md) file.
+For list of deprecated templates, with the reason of deprecation and how to proceed with the update of this template, please check the [DEPRECATED.md](./DEPRECATED.md) file.

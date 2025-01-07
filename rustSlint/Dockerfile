@@ -1,9 +1,8 @@
 # ARGUMENTS --------------------------------------------------------------------
 ##
 # Base container version
-# Using Slint v1.8.0 base images
 ##
-ARG CROSS_SDK_BASE_TAG=4.0.0-1.8.0
+ARG CROSS_SDK_BASE_TAG=4.0.0
 ARG BASE_VERSION=4
 
 ##
@@ -23,7 +22,7 @@ ARG GPU=
 
 
 # BUILD ------------------------------------------------------------------------
-FROM commontorizon/slint-sdk-${IMAGE_ARCH}:${CROSS_SDK_BASE_TAG} AS build
+FROM torizon/cross-toolchain-${IMAGE_ARCH}:${CROSS_SDK_BASE_TAG} AS build
 
 ARG IMAGE_ARCH
 ARG GPU
@@ -41,6 +40,41 @@ RUN if [ "$IMAGE_ARCH" = "arm64" ] ; then \
         echo x86_64-unknown-linux-gnu > /rust-toolchain-arch.txt; \
         echo amd64 > /cross-toolchain-arch.txt; \
     fi
+
+# Install Rust
+ENV RUSTUP_HOME=/rust
+ENV CARGO_HOME=/cargo
+ENV PATH=/cargo/bin:/rust/bin:$PATH
+
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+RUN rustup target add $(cat /rust-toolchain-arch.txt)
+
+RUN mkdir -p /cargo/registry && chmod 777 /cargo/registry
+
+# Install Slint build dependencies (libxcb, etc.)
+RUN \
+    --mount=type=cache,target=/var/cache/apt \
+    CROSS_TOOLCHAIN_ARCH=$(cat /cross-toolchain-arch.txt) && \
+    rm /etc/apt/sources.list.d/toradex.sources && \
+    apt-get update && \
+    apt-get install --assume-yes \
+    pkg-config \
+    libfontconfig1-dev:$CROSS_TOOLCHAIN_ARCH \
+    libxcb1-dev:$CROSS_TOOLCHAIN_ARCH \
+    libxcb-render0-dev:$CROSS_TOOLCHAIN_ARCH \
+    libxcb-shape0-dev:$CROSS_TOOLCHAIN_ARCH \
+    libxcb-xfixes0-dev:$CROSS_TOOLCHAIN_ARCH \
+    libxkbcommon-dev:$CROSS_TOOLCHAIN_ARCH \
+    libinput-dev:$CROSS_TOOLCHAIN_ARCH \
+    libudev-dev:$CROSS_TOOLCHAIN_ARCH \
+    libdrm2:$CROSS_TOOLCHAIN_ARCH \
+    libgbm-dev:$CROSS_TOOLCHAIN_ARCH \
+    python3 \
+    clang \
+    libstdc++-11-dev:$CROSS_TOOLCHAIN_ARCH && \
+    rm -rf /var/lib/apt/lists/*
+
+ENV PKG_CONFIG_ALLOW_CROSS=1
 
 RUN mkdir -p /cargo/registry && chmod 777 /cargo/registry
 

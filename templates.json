@@ -334,7 +334,7 @@
                 },
                 "debuggerConsole": "cppdbg",
                 "mainFile": "src/main.c",
-                "mainFileBreakpointLine": 4,
+                "mainFileBreakpointLine": 56,
                 "successDebugMessage": "Hello Torizon!"
             }
         }

@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Build & Deploy
     container:
-      image: commontorizon/torizon-dev:next
+      image: torizonextras/torizon-dev:next
     steps:
       - uses: actions/checkout@v3
 
@@ -17,7 +17,7 @@ jobs:
           cat abs-path
 
       - name: Initial Setup
-        shell: pwsh
+        shell: xonsh {0}
         env:
           TORIZON_ARCH: ""
           DOCKER_PSSWD: ${{ secrets.DOCKER_PSSWD }}
@@ -25,14 +25,21 @@ jobs:
           PLATFORM_CLIENT_SECRET: ${{ secrets.PLATFORM_CLIENT_SECRET }}
           PLATFORM_CREDENTIALS: ${{ secrets.PLATFORM_CREDENTIALS }}
         run: |
-          $_settings = (Get-Content ./.vscode/settings.json | ConvertFrom-Json)
-          $env:TORIZON_ARCH = $_settings.torizon_arch
-          if ($env:TORIZON_ARCH -eq "aarch64") { $env:TORIZON_ARCH = "arm64" }
-          if ($env:TORIZON_ARCH -eq "armhf") { $env:TORIZON_ARCH = "arm" }
-          echo "TORIZON_ARCH=$env:TORIZON_ARCH" | `
-            Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          import os
+          import json
 
-          ./.vscode/tasks.ps1 run validate-pipeline-settings
+          with open(".vscode/settings.json") as f:
+              settings = json.load(f)
+              os.environ["TORIZON_ARCH"] = settings["torizon_arch"]
+              if os.environ["TORIZON_ARCH"] == "aarch64":
+                  os.environ["TORIZON_ARCH"] = "arm64"
+              if os.environ["TORIZON_ARCH"] == "armhf":
+                  os.environ["TORIZON_ARCH"] = "arm"
+
+          with open(os.environ["GITHUB_ENV"], "a") as f:
+              f.write(f"TORIZON_ARCH={os.environ['TORIZON_ARCH']}\n")
+
+          xonsh ./.vscode/tasks.xsh run validate-pipeline-settings
 
       - name: Decode Credentials
         env:
@@ -41,7 +48,7 @@ jobs:
           echo $PLATFORM_CREDENTIALS | base64 -d > credentials.zip
 
       - name: Create and Publish Image
-        shell: pwsh
+        shell: xonsh {0}
         env:
           TASKS_ITERATIVE: "False"
           TASKS_OVERRIDE_ENV: "False"
@@ -49,12 +56,12 @@ jobs:
           PLATFORM_CLIENT_ID: ${{ secrets.PLATFORM_CLIENT_ID }}
           PLATFORM_CLIENT_SECRET: ${{ secrets.PLATFORM_CLIENT_SECRET }}
         run: |
-          ./.vscode/tasks.ps1 run docker-login
-          ./.vscode/tasks.ps1 run run-torizon-binfmt
-          ./.vscode/tasks.ps1 run tcb-platform-publish
+          xonsh ./.vscode/tasks.xsh run docker-login
+          xonsh ./.vscode/tasks.xsh run run-torizon-binfmt
+          xonsh ./.vscode/tasks.xsh run tcb-platform-publish
 
       - name: Deploy Application
-        shell: pwsh
+        shell: xonsh {0}
         env:
           TASKS_ITERATIVE: "False"
           TASKS_OVERRIDE_ENV: "False"
@@ -62,7 +69,7 @@ jobs:
           PLATFORM_CLIENT_SECRET: ${{ secrets.PLATFORM_CLIENT_SECRET }}
         if: ${{ github.ref == 'refs/heads/main' }}
         run: |
-          ./.vscode/tasks.ps1 run platform-update-fleet
+          xonsh ./.vscode/tasks.xsh run platform-update-fleet
 
       - name: Artifacts
         uses: actions/upload-artifact@v3

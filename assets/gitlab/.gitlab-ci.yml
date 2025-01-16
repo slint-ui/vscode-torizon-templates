@@ -27,15 +27,23 @@ initial-setup:
   script: |
     echo '
 
-      $_settings = (Get-Content ./.vscode/settings.json | ConvertFrom-Json)
-      $_torizonArch = $_settings.torizon_arch
-      if ($_torizonArch -eq "aarch64") { $_torizonArch = "arm64" }
-      if ($_torizonArch -eq "armhf") { $_torizonArch = "arm" }
-      "TORIZON_ARCH=$_torizonArch " | Set-Content -Path "setup.env"
+      import os
+      import json
 
-      ./.vscode/tasks.ps1 run validate-pipeline-settings
+      with open(".vscode/settings.json") as f:
+          settings = json.load(f)
+          os.environ["TORIZON_ARCH"] = settings["torizon_arch"]
+          if os.environ["TORIZON_ARCH"] == "aarch64":
+              os.environ["TORIZON_ARCH"] = "arm64"
+          if os.environ["TORIZON_ARCH"] == "armhf":
+              os.environ["TORIZON_ARCH"] = "arm"
 
-    ' | gitlabWrapper.ps1
+      with open(os.environ["GITHUB_ENV"], "a") as f:
+          f.write(f"TORIZON_ARCH={os.environ['TORIZON_ARCH']}\n")
+
+      xonsh ./.vscode/tasks.xsh run validate-pipeline-settings
+
+    ' | xonsh-wrapper.xsh
 
   artifacts:
     reports:
@@ -55,11 +63,11 @@ build-docker-image:
   script: |
     echo '
 
-      ./.vscode/tasks.ps1 run docker-login
-      ./.vscode/tasks.ps1 run run-torizon-binfmt
-      ./.vscode/tasks.ps1 run create-production-image
+      xonsh ./.vscode/tasks.xsh run docker-login
+      xonsh ./.vscode/tasks.xsh run run-torizon-binfmt
+      xonsh ./.vscode/tasks.xsh run tcb-platform-publish
 
-    ' | gitlabWrapper.ps1
+    ' | xonsh-wrapper.xsh
 
   artifacts:
     paths:
@@ -81,10 +89,10 @@ push-package-to-platform:
     echo $PLATFORM_CREDENTIALS | base64 -d > credentials.zip
     echo '
 
-      ./.vscode/tasks.ps1 run run-torizon-binfmt
-      ./.vscode/tasks.ps1 run tcb-platform-publish
+      xonsh ./.vscode/tasks.xsh run run-torizon-binfmt
+      xonsh ./.vscode/tasks.xsh run tcb-platform-publish
 
-    ' | gitlabWrapper.ps1
+    ' | xonsh-wrapper.xsh
 
   artifacts:
     paths:
@@ -111,6 +119,6 @@ update-fleet:
     echo $PLATFORM_CREDENTIALS | base64 -d > credentials.zip
     echo '
 
-      ./.vscode/tasks.ps1 run platform-update-fleet
+      xonsh ./.vscode/tasks.xsh run platform-update-fleet
 
-    ' | gitlabWrapper.ps1
+    ' | xonsh-wrapper.xsh

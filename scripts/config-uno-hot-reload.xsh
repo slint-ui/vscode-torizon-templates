@@ -4,10 +4,10 @@
 # SPDX-License-Identifier: MIT
 
 ##
-# This script is used to check if all the files have a new line at the end.
+# This script automatically set the host ip in the csproj file.
 # WARNING:
-# This script is not meant to be run manually. It's make part of the internal
-# validation process from CI/CD.
+# This script is not meant to be run manually. It's make part of the tasks
+# for the .NET Uno framework template.
 ##
 
 # use the xonsh environment to update the OS environment

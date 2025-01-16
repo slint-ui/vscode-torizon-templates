@@ -66,10 +66,11 @@
             "args": [
                 "-nop",
                 "-c",
-                "${env:HOME}/.apollox/scripts/updateGambasIni.ps1",
+                "${env:HOME}/.apollox/scripts/update-gambas-ini.xsh",
                 "${workspaceFolder}",
                 "${config:torizon_ip}",
-                "${config:torizon_debug_ssh_port}",                "__change__"
+                "${config:torizon_debug_ssh_port}",
+                "__change__"
             ],
             "dependsOrder": "sequence",
             "problemMatcher": "$msCompile",

@@ -160,9 +160,12 @@ $templateName = $_metadataJson.templateName
 $containerName = $_metadataJson.containerName
 $_torizonOSMajor = $_metadataJson.TorizonOSMajor
 
-# If it's not the current version, it's because the person has torizon.templatesBranch setting set
-if ($_templatesJson.TorizonOSMajor -ne "7") {
-    Write-Host -ForegroundColor DarkYellow "The current Torizon OS version is 7. If you want to upgrade to the current version, remove the torizon.templatesBranch setting."
+##
+# FIXUP FOR THE ISSUE WITH BOOKWORM SET AS TorizonOSMajor=7
+# !!!IF WE ARE USING PWSH MEANS THAT IS NOT 7 IS 6!!!
+##
+if ($_torizonOSMajor -eq "7") {
+    $_torizonOSMajor = "6"
 }
 
 $_templatesJsonTorizonMajor = $_templatesJson.TorizonOSMajor
@@ -206,7 +209,7 @@ if ($_torizonOSMajor -ne $_templatesJsonTorizonMajor) {
             $projectFolder/.conf/project-updater.xsh `
             $projectFolder `
             $projectName `
-            "false" `
+            "true" `
             "false" `
             "false"
 

@@ -210,8 +210,8 @@ _templates_metadata_file = open(f"{os.environ['HOME']}/.apollox/templates.json",
 _templates_metadata = json.loads(_templates_metadata_file.read())
 _templates_metadata_file.close()
 
-if "torizonOSMajor" in _templates_metadata:
-    _templatesJsonTorizonMajor = _templates_metadata["torizonOSMajor"]
+if "TorizonOSMajor" in _templates_metadata:
+    _templatesJsonTorizonMajor = _templates_metadata["TorizonOSMajor"]
 else:
     _templatesJsonTorizonMajor = "6"
 
@@ -256,9 +256,9 @@ _torizonOSMajor = _project_metadata["torizonOSMajor"]
 _template_name = _project_metadata['templateName']
 
 # signalize if the user is under a torizonOSMajor not 7
-if int(_torizonOSMajor) != 7:
+if _torizonOSMajor != "7":
     print(
-        "The latest Torizon OS major version is 7.",
+        "The latest Torizon OS major version is 7",
         color=Color.YELLOW
     )
     print(
@@ -271,7 +271,7 @@ if int(_torizonOSMajor) != 7:
     )
 
 # make sure to accept a major version update
-if int(_torizonOSMajor) != int(_templatesJsonTorizonMajor):
+if _torizonOSMajor != _templatesJsonTorizonMajor:
     print(
         f"Your template is on Torizon OS major version {_torizonOSMajor} and you are updating it to a template in Torizon OS major version {_templatesJsonTorizonMajor}",
         color=Color.RED

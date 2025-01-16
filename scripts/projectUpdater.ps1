@@ -176,6 +176,48 @@ if ($_torizonOSMajor -ne $_templatesJsonTorizonMajor) {
     if ($_sure -ne "y") {
         Write-Host -ForegroundColor DarkRed "If you want to stick to a specific Torizon OS version, set the torizon.templatesBranch on settings.json: https://developer.toradex.com/torizon/application-development/ide-extension/reference-documentation/workspace-settings#torizontemplatesbranch"
         exit 0
+    } else {
+        Write-Host `
+            -ForegroundColor DarkYellow `
+            "⚠️  On Torizon 7, the scripts are moved from powershell to a Python shell (https://xon.sh/). So, removing the powershell scripts..."
+
+        # remove all, less itself
+        $scriptName = "projectUpdater.ps1"
+        Get-ChildItem -Path "$projectFolder/.conf" -Filter "*.ps1" | ForEach-Object {
+            if ($_.Name -ne $scriptName) {
+                Remove-Item $_ -Force
+            }
+        }
+
+
+        # get the xonsh updater
+        Copy-Item `
+            $Env:HOME/.apollox/scripts/project-updater.xsh `
+            $projectFolder/.conf/project-updater.xsh
+
+        # the extension should already ran this, but just in case
+        bash $env:HOME/.apollox/scripts/bash/setup-xonsh.sh
+
+        # make it easy for the updater to ignore missing files and simply copy then to the project
+        $env:TORIZON_TEMPLATES_UPDATER_IGNORE_MISSING_FILES = "True"
+
+        # now call the xonsh updater
+        & "$env:HOME/.local/bin/xonsh" `
+            $projectFolder/.conf/project-updater.xsh `
+            $projectFolder `
+            $projectName `
+            "false" `
+            "false" `
+            "false"
+
+        if ($LASTEXITCODE -ne 0) {
+            Write-Host -ForegroundColor DarkRed "❌ Error updating the project"
+            exit $LASTEXITCODE
+        } else {
+            Write-Host -ForegroundColor DarkGreen "Project updated, deleting myself 🥲"
+            Remove-Item -Force $projectFolder/.conf/projectUpdater.ps1
+            exit 0
+        }
     }
 }
 

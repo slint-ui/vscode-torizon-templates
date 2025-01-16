@@ -77,6 +77,14 @@ def _check_if_file_content_is_equal(file1_path, file2_path):
 
         return file1_hash == file2_hash
     except FileNotFoundError as fex:
+        if os.environ["TORIZON_TEMPLATES_UPDATER_IGNORE_MISSING_FILES"] == "True":
+            # make sure that the file missing is not the one from .apollox
+            if ".apollox" not in fex.filename:
+                # so, we ignore the error copy the file1_path to file2_path
+                # and return True
+                cp -f @(file1_path) @(file2_path)
+                return True
+
         Error_Out(
             f"❌ fatal: {fex.filename} not found when trying to diff files",
             Error.ENOFOUND

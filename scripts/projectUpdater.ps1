@@ -209,8 +209,8 @@ if ($_torizonOSMajor -ne $_templatesJsonTorizonMajor) {
             $projectFolder/.conf/project-updater.xsh `
             $projectFolder `
             $projectName `
-            "true" `
             "false" `
+            "true" `
             "false"
 
         if ($LASTEXITCODE -ne 0) {

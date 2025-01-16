@@ -65,7 +65,7 @@ RUN \
         GITHUB_RELEASE=nightly; \
         GITHUB_FILENAME_INFIX=nightly; \
     else \
-        GITHUB_RELEASE=$SLINT_VERSION; \
+        GITHUB_RELEASE=v$SLINT_VERSION; \
         GITHUB_FILENAME_INFIX=$SLINT_VERSION; \
     fi && \
     wget -O - https://github.com/slint-ui/slint/releases/download/$GITHUB_RELEASE/Slint-cpp-$GITHUB_FILENAME_INFIX-Linux-$CROSS_TOOLCHAIN_ARCH.tar.gz \

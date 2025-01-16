@@ -691,7 +691,7 @@
             "args": [
                 "-nop",
                 "-c",
-                "${env:HOME}/.apollox/scripts/updateQtCreatorIni.ps1",
+                "${env:HOME}/.apollox/scripts/update-qt-creator-ini.xsh",
                 "${workspaceFolder}",
                 "${config:torizon_ip}:${config:torizon_debug_port1}",
                 "__change__",
@@ -720,7 +720,7 @@
             "args": [
                 "-nop",
                 "-c",
-                "${env:HOME}/.apollox/scripts/updateQtCreatorIni.ps1",
+                "${env:HOME}/.apollox/scripts/update-qt-creator-ini.xsh",
                 "${workspaceFolder}",
                 "${config:torizon_ip}:${config:torizon_debug_port1}",
                 "__change__",
@@ -749,7 +749,7 @@
             "args": [
                 "-nop",
                 "-c",
-                "${env:HOME}/.apollox/scripts/updateQtCreatorIni.ps1",
+                "${env:HOME}/.apollox/scripts/update-qt-creator-ini.xsh",
                 "${workspaceFolder}",
                 "localhost:${config:torizon_debug_port1}",
                 "__change__",

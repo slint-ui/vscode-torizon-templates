@@ -25,6 +25,7 @@ from torizon_templates_utils.animations import run_command_with_wait_animation
 
 _VERSION = "0.0.0"
 $SCRIPT_PATH = os.path.dirname(os.path.realpath(__file__))
+$TORIZON_TEMPLATES_NON_VSCODE = "true"
 
 
 # make sure we have the $HOME/.tcd directory

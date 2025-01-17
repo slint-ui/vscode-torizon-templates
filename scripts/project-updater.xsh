@@ -60,8 +60,15 @@ Usage:
 project_folder = get_arg_not_empty(1)
 project_name = get_arg_not_empty(2)
 accept_all = get_arg_not_empty(3) == "True"
-vscode = get_optional_arg(4, False)
+vscode = get_optional_arg(4, True)
 second_run = get_optional_arg(5, False)
+
+##
+# even tough the vscode arg is true, if the TORIZON_TEMPLATES_NON_VSCODE
+# is set we will not use the vscode to open the diff tool
+##
+if "TORIZON_TEMPLATES_NON_VSCODE" in os.environ:
+    vscode = False
 
 
 def _check_if_file_content_is_equal(file1_path, file2_path):

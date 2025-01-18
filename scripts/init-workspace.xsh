@@ -53,7 +53,8 @@ if os.path.exists("./.conf/metadata.json"):
     _metadata_json = json.load(_metadata_json_file)
     _metadata_json_file.close()
 
-    _project_name = _metadata_json["projectName"]
+    _template_name = _metadata_json["templateName"]
+    _project_name = os.path.basename(os.getcwd())
 
 else:
     Error_Out(
@@ -63,6 +64,12 @@ else:
 
 
 # mimic the vs code auto run
+if "WSL_DISTRO_NAME" in os.environ:
+    print("🔧 :: Sharing WSL ports with Windows :: 🔧")
+    print("")
+    sudo nsenter -t 1 -m -u -n -i -- powershell.exe -NoProfile -C "start-process powershell -verb runas -ArgumentList '-NoProfile -C \"(Remove-NetFireWallRule -DisplayName ApolloX) -or \$true ;  New-NetFireWallRule -DisplayName ApolloX -Direction Outbound -LocalPort 8090,5002 -Action Allow -Protocol TCP ;  New-NetFireWallRule -DisplayName ApolloX -Direction Inbound -LocalPort 8090,5002 -Action Allow -Protocol TCP ;  (netsh interface portproxy delete v4tov4 listenport=8090 listenaddress=0.0.0.0) -or \$true ;  (netsh interface portproxy delete v4tov4 listenport=5002 listenaddress=0.0.0.0) -or \$true ;  (netsh interface portproxy add v4tov4 listenport=8090 listenaddress=0.0.0.0 connectport=8090 connectaddress=172.24.54.164) -or \$true ;  (netsh interface portproxy add v4tov4 listenport=5002 listenaddress=0.0.0.0 connectport=5002 connectaddress=172.24.54.164) -or \$true ; echo done\"'"
+    print("")
+
 print("🔧 :: Running Local Registry :: 🔧")
 print("")
 xonsh ./.vscode/tasks.xsh run run-docker-registry
@@ -102,4 +109,4 @@ with open(f"./.vscode/settings.json", "w") as f:
     json.dump(_settings, f, indent=4)
 
 print("")
-print(f"✅ :: Project {_project_name} initialized to work with {_hostname} :: ✅", color=Color.GREEN)
+print(f"✅ :: Project [{_project_name}] based on [{_template_name}] initialized to work with device [{_hostname}] :: ✅", color=Color.GREEN)

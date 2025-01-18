@@ -42,6 +42,7 @@ jobs:
           python3 -m build
 
       - name: Create .pypirc
+        if: env.SKIP_PUBLISH != 'true'
         env:
           TWINE_USERNAME: ${{ secrets.PYPI_USER }}
           TWINE_PASSWORD: ${{ secrets.PYPI_CREDS }}
@@ -51,6 +52,7 @@ jobs:
           echo "password = $TWINE_PASSWORD" >> ./scripts/utils/pip/.pypirc
 
       - name: Publish Package
+        if: env.SKIP_PUBLISH != 'true'
         run: |
           cd ./scripts/utils/pip
           python3 -m \

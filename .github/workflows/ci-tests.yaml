@@ -34,4 +34,4 @@ jobs:
         shell: bash
 
         run: |
-          /home/torizon/.local/bin/xonsh ./scripts/valid-new-line.xsh
+          xonsh ./scripts/valid-new-line.xsh

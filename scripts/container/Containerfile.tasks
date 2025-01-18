@@ -37,10 +37,10 @@ USER torizon
 WORKDIR /workspace
 
 # update the path
-ENV PATH="/home/torizon/.local/bin:${PATH}"
+ENV PATH="/root/.local/bin:${PATH}"
 
 ENTRYPOINT [ \
-    "/home/torizon/.local/bin/xonsh", \
+    "/root/.local/bin/xonsh", \
         "./.vscode/tasks.xsh" \
 ]
 

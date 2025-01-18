@@ -25,7 +25,6 @@ if len(sys.argv) != 2:
     sys.exit(1)
 
 $BRANCH = sys.argv[1]
-$UUID = $(id -u)
 $SHA_DIR = 0
 
 # # run the build command

@@ -56,17 +56,29 @@ function torizon-dev {
         docker start torizon-dev-$myhash > /dev/null
     # else then run it
     else
+        _workspace=$(basename $PWD)
+        echo "Configuring environment for the [$_workspace] workspace ..."
+        echo "Please wait ..."
+
         docker \
             compose \
             -f $_COMPOSE_FILE \
             run \
             --entrypoint /bin/bash \
             --name torizon-dev-$myhash \
+            --user root \
             -d torizon-dev > /dev/null
+
+        # also add the torizon user in the docker group
+        docker exec -it --user root torizon-dev-$myhash usermod -u $UUID torizon
+        docker exec -it --user root torizon-dev-$myhash groupadd -g $DGID docker
+        docker exec -it --user root torizon-dev-$myhash usermod -aG $DGID torizon
+        # /home/torizon need to be owned by the new torizon user
+        docker exec -it --user root torizon-dev-$myhash chown -R torizon:torizon /home/torizon
     fi
 
     # exec the zygote with the args
-    docker exec -it torizon-dev-$myhash zygote $@
+    docker exec -it --user torizon torizon-dev-$myhash zygote $@
 }
 
 echo "Sourcing the completion file ..."

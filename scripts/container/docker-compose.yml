@@ -5,6 +5,8 @@ services:
     build:
       context: ../
       dockerfile: container/Containerfile.xonsh
+      args:
+        - BRANCH=${BRANCH}
     image: torizonextras/xonsh:${BRANCH}
 
 

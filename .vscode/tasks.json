@@ -20,15 +20,13 @@
         },
         {
             "label": "check-eof-new-line",
-            "command": "pwsh",
+            "command": "xonsh",
             "type": "shell",
             "options": {
                 "cwd": "${workspaceFolder}"
             },
             "args": [
-                "-nop",
-                "-f",
-                "./scripts/validNewLine.ps1"
+                "./scripts/valid-new-line.xsh"
             ],
             "problemMatcher": [
                 "$gcc"

@@ -6,7 +6,7 @@ jobs:
   dotnet-debug:
     runs-on: ubuntu-24.04
     if: github.ref == 'refs/heads/bookworm' || github.ref == 'refs/heads/dev'
-    name: Python3 Container Debug
+    name: dotnet Container Debug
     strategy:
       matrix:
         project:

@@ -36,7 +36,7 @@ settingsTemplate = {
     "docker_tag": "v0.0.0",
     "tcb.packageName": "__change__",
     "tcb.version": "3.11.0",
-    "torizon.gpuPrefixRC": False
+    "torizon.gpuPrefixRC": True
 }
 
 print("Updating settings.json ...")

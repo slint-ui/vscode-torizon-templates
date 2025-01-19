@@ -115,9 +115,8 @@ with open(f"{os.environ['HOME']}/.tcd/target.json", "r") as f:
     _target_device = json.load(f)
 
 _rc_prefix = None
-if "torizon" in _settings:
-    if "gpuPrefixRC" in _settings["torizon"]:
-        _rc_prefix = _settings["torizon"]["gpuPrefixRC"]
+if "torizon.gpuPrefixRC" in _settings:
+    _rc_prefix = _settings["torizon.gpuPrefixRC"]
 
 if _rc_prefix is None:
     _rc_prefix = False

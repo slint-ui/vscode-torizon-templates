@@ -17,7 +17,7 @@
   "docker_tag": "v0.0.0",
   "tcb.packageName": "__change__",
   "tcb.version": "3.11.0",
-  "torizon.gpuPrefixRC": false,
+  "torizon.gpuPrefixRC": true,
   "qtForPython.rcc.liveExecution.enabled": false,
   "qtForPython.qmlls.path": "/usr/lib/qt6/bin/qmlls",
   "qtForPython.qmlls.enabled": true,

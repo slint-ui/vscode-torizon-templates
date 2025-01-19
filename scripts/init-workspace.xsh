@@ -83,6 +83,11 @@ print("")
 xonsh ./.vscode/tasks.xsh run run-docker-registry
 print("")
 
+print("🔧 :: Running binfmt registry :: 🔧")
+print("")
+xonsh ./.vscode/tasks.xsh run run-torizon-binfmt
+print("")
+
 print("🔧 :: Running Check dependency :: 🔧")
 print("")
 xonsh ./.vscode/tasks.xsh run check-deps

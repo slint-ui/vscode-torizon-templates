@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "torizon_templates_utils"
-version = "0.0.6"
+version = "0.0.7"
 authors = [
   { name="Matheus Castello", email="matheus.castello@toradex.com" },
 ]

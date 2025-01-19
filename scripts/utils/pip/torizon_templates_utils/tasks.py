@@ -786,8 +786,8 @@ class TaskRunner:
                 exp_value_str = " ".join(expvalue)
 
                 if self.__debug:
-                    print(f"Env: {env}={_env_value}")
-                    print(f"Parsed Env: {env}={exp_value_str}")
+                    print(f"Env: {env}={_env_value}", color=Color.YELLOW)
+                    print(f"Parsed Env: {env}={exp_value_str}", color=Color.YELLOW)
 
                 return exp_value_str
 

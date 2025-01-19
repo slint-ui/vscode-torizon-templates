@@ -35,6 +35,14 @@ jobs:
     uses: ./.github/workflows/build-rust.yaml
     needs: sanity-check
 
+  build-dotnet:
+    uses: ./.github/workflows/build-dotnet.yaml
+    needs: sanity-check
+
+  build-debug-dotnet:
+    uses: ./.github/workflows/build-debug-dotnet.yaml
+    needs: sanity-check
+
   publish-torizon-utils:
     uses: ./.github/workflows/publish-torizon-utils.yaml
     secrets: inherit
@@ -45,6 +53,9 @@ jobs:
       - build-python
       - build-debug-rust
       - build-rust
+      - build-dotnet
+      - build-debug-dotnet
+
 
   publish-torizon-dev:
     uses: ./.github/workflows/build-publish-torizon-dev.yaml
@@ -56,3 +67,5 @@ jobs:
       - build-python
       - build-debug-rust
       - build-rust
+      - build-dotnet
+      - build-debug-dotnet

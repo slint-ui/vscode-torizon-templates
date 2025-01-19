@@ -873,6 +873,7 @@ class TaskRunner:
         _args = self.__check_input(_args)
         _args = self.__check_vscode_env(_args)
         _args = self.__check_config(_args)
+        _args = self.__check_workspace_folder(_args)
         # FIXME:    These was in the powershell implementation
         #           but when used on Python it generates weird behavior
         # _args = self.__check_long_args(_args)

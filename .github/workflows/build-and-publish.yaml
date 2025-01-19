@@ -61,6 +61,7 @@ jobs:
     uses: ./.github/workflows/build-publish-torizon-dev.yaml
     secrets: inherit
     needs:
+      - publish-torizon-utils
       - build-ccpp
       - build-debug-ccpp
       - build-debug-python

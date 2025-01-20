@@ -72,6 +72,6 @@ COPY --from=build ${APP_ROOT}/build-${IMAGE_ARCH}/bin ${APP_ROOT}
 WORKDIR ${APP_ROOT}
 
 # Command executed in runtime when the container starts
-CMD ["./__change__"]
+CMD ["./main"]
 
 # DEPLOY -----------------------------------------------------------------------

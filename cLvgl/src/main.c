@@ -52,6 +52,10 @@ int main(int argc, char **argv)
     lv_demo_widgets();
     lv_demo_widgets_start_slideshow();
 
+    /* Print a message, used in automated tests */
+    printf("Hello Torizon\n");
+    fflush(stdout);
+
     lv_linux_run_loop();
 
     return 0;

@@ -81,5 +81,9 @@ jobs:
 
           chmod a+rw -R .
           xonsh ./.vscode/tasks.xsh run run-torizon-binfmt
+
+          if os.environ['PROJECT_FOLDER'] == 'cLvgl':
+            xonsh ./.vscode/tasks.xsh run get-lvgl-lib
+
           xonsh ./.vscode/tasks.xsh run @(f"build-debug-{os.environ['PROJECT_ARCH']}")
           xonsh ./.vscode/tasks.xsh run @(f"build-container-torizon-debug-{os.environ['PROJECT_ARCH']}")

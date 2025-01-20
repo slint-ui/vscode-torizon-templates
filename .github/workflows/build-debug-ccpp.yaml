@@ -18,6 +18,10 @@ jobs:
             container: cpp-slint
             vendor: '{ "arch": "arm64", "torizon_arch": "aarch64" }'
 
+          - folder: cLvgl
+            container: c-lvgl
+            vendor: '{ "arch": "arm64", "torizon_arch": "aarch64" }'
+
     steps:
       - uses: actions/checkout@v3
 

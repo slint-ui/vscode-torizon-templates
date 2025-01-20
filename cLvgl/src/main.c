@@ -14,6 +14,7 @@
  ******************************************************************/
 #include <unistd.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "lvgl/lvgl.h"
 #include "lvgl/demos/lv_demos.h"

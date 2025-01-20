@@ -35,3 +35,19 @@ jobs:
 
         run: |
           xonsh ./scripts/valid-new-line.xsh
+
+  check-json:
+    runs-on: ubuntu-24.04
+    container:
+      image: torizonextras/torizon-dev:dev
+      options: --user root
+    name: Check JSON
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Check JSON
+
+        shell: bash
+
+        run: |
+          xonsh ./scripts/validate-json.xsh

@@ -75,7 +75,7 @@ COPY --from=docker:dind /usr/local/libexec/docker/cli-plugins /usr/local/lib/doc
 # get current scripts
 WORKDIR /home/torizon/.apollox/scripts/node
 RUN chmod -R 757 /root && \
-    npm install ./apollox-0.2.1.tgz
+    npm install ./apollox-0.2.2.tgz
 
 # inject the zygote
 COPY ./zygote.xsh /home/torizon/.apollox/scripts/zygote.xsh

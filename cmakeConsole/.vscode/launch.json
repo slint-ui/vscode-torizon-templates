@@ -38,7 +38,7 @@
             "externalConsole": false,
             "internalConsoleOptions": "openOnSessionStart",
             "logging": {
-                "engineLogging": true,
+                "engineLogging": true
             },
             "sourceFileMap": {
                 "${config:torizon_app_root}": "${workspaceFolder}"
@@ -85,7 +85,7 @@
             "externalConsole": false,
             "internalConsoleOptions": "openOnSessionStart",
             "logging": {
-                "engineLogging": true,
+                "engineLogging": true
             },
             "sourceFileMap": {
                 "${config:torizon_app_root}": "${workspaceFolder}"

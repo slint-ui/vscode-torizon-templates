@@ -562,6 +562,75 @@
                 "panel": "shared",
                 "group": "build-execution"
             }
+        },
+        {
+            "label": "clean-framebuffer",
+            "detail": "",
+            "hide": true,
+            "command": "sshpass",
+            "type": "process",
+            "args": [
+                "-p",
+                "${config:torizon_psswd}",
+                "ssh",
+                "-p",
+                "${config:torizon_ssh_port}",
+                "-o",
+                "UserKnownHostsFile=/dev/null",
+                "-o",
+                "StrictHostKeyChecking=no",
+                "torizon@${config:torizon_ip}",
+                "cat /dev/zero > /dev/fb0 ; true"
+            ],
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "stop-container-torizon"
+            ],
+            "problemMatcher": "$msCompile",
+            "icon": {
+                "id": "stop",
+                "color": "terminal.ansiYellow"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "group": "build-execution"
+            }
+        },
+        {
+            "label": "stop-container-torizon",
+            "detail": "",
+            "hide": true,
+            "command": "sshpass",
+            "type": "process",
+            "args": [
+                "-p",
+                "${config:torizon_psswd}",
+                "ssh",
+                "-p",
+                "${config:torizon_ssh_port}",
+                "-o",
+                "UserKnownHostsFile=/dev/null",
+                "-o",
+                "StrictHostKeyChecking=no",
+                "torizon@${config:torizon_ip}",
+                "LOCAL_REGISTRY=${config:host_ip} DEBUG_SSH_PORT=1 DEBUG_PORT1=2 DEBUG_PORT2=3 DEBUG_PORT3=4 docker-compose down --remove-orphans"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": "$msCompile",
+            "icon": {
+                "id": "stop",
+                "color": "terminal.ansiYellow"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "group": "build-execution"
+            }
         }
     ],
     "inputs": []

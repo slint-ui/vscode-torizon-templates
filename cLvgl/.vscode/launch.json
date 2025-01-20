@@ -43,7 +43,8 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "deploy-torizon-amd64"
+            "preLaunchTask": "deploy-torizon-amd64",
+            "postDebugTask": "clean-framebuffer"
         },
         {
             "name": "Torizon ARMv7",
@@ -87,7 +88,8 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "deploy-torizon-arm"
+            "preLaunchTask": "deploy-torizon-arm",
+            "postDebugTask": "clean-framebuffer"
         },
         {
             "name": "Torizon ARMv8",
@@ -131,7 +133,8 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "deploy-torizon-arm64"
+            "preLaunchTask": "deploy-torizon-arm64",
+            "postDebugTask": "clean-framebuffer"
         }
     ]
 }
